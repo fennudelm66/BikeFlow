@@ -104,8 +104,8 @@ router.post('/pwd', authMiddleware, async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: '163',
       auth: {
-        user: 'lrz08302005@163.com',
-        pass: 'FVGRCXYRKVQGDIEE'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
@@ -115,7 +115,7 @@ router.post('/pwd', authMiddleware, async (req, res) => {
     const htmlContent = await ejs.renderFile(templatePath, { resetUrl });
 
     await transporter.sendMail({
-      from: 'lrz08302005@163.com',
+      from: process.env.EMAIL_USER,
       to: email,
       subject: '密码重置确认',
       html: htmlContent
